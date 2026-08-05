@@ -37,7 +37,7 @@ const orderConfirm = document.getElementById("order-confirm");
 // Apps Script Web App URL (deployed as "Anyone" access) — appends a row per submission.
 const SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyAz9osRAomGR1isJHvcJy9dDtUWHDa6Z9LlBE4acordC6layso1VnvSA_HLtB3DQSmtQ/exec";
 
-function logToSheet(event, food, address) {
+function logToSheet(event, food, address, detail) {
   fetch(SHEET_WEB_APP_URL, {
     method: "POST",
     mode: "no-cors",
@@ -46,6 +46,7 @@ function logToSheet(event, food, address) {
       event,
       food: food || "",
       address: address || "",
+      detail: detail || "",
       submittedAt: new Date().toLocaleString("th-TH"),
     }),
   }).catch(() => {
@@ -73,11 +74,13 @@ function handleForgive() {
 function handleNo() {
   round += 1;
   if (round > MESSAGES.length) {
+    logToSheet("กดม่ายอะ", "", "", `รอบที่ ${round} (วนกลับไปคำถามแรก)`);
     round = 0;
     popupOverlay.classList.add("hidden");
     mainScreen.classList.remove("hidden");
     return;
   }
+  logToSheet("กดม่ายอะ", "", "", `รอบที่ ${round}: ${MESSAGES[round - 1]}`);
   popupMessage.textContent = MESSAGES[round - 1];
   mainScreen.classList.add("hidden");
   popupOverlay.classList.remove("hidden");
