@@ -40,6 +40,17 @@
       <img class="mascot-success" src="assets/images (1).jpeg" alt="My Melody">
     </div>
     <h1 class="success-text">เหมยน่ารักที่สุด<br>ในโลกเลยยยย</h1>
+
+    <form id="order-form" class="order-form">
+      <label for="food-input">เหมยอยากกินอะไรมั้ย พิมพ์ให้พี่หน่อยนะ</label>
+      <input type="text" id="food-input">
+
+      <label for="address-input">ให้พี่ส่งให้ที่ไหนดีที่เหมยไปรับได้</label>
+      <textarea id="address-input" rows="2"></textarea>
+
+      <button type="submit" class="btn btn-yes" data-action="submit-order">ส่งให้พี่เลย</button>
+    </form>
+    <p id="order-confirm" class="order-confirm hidden">ส่งให้พี่แล้วนะ เดี๋ยวพี่จัดให้เลย 💌</p>
   </section>
 </div>
 
