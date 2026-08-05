@@ -22,35 +22,29 @@ const MESSAGES = [
 ];
 
 let round = 0;
-let notified = false;
 
 const mainScreen = document.getElementById("main-screen");
 const popupOverlay = document.getElementById("popup-overlay");
 const popupMessage = document.getElementById("popup-message");
 const successScreen = document.getElementById("success-screen");
 const floatingHeartsLayer = document.getElementById("floating-hearts");
+const orderForm = document.getElementById("order-form");
+const foodInput = document.getElementById("food-input");
+const addressInput = document.getElementById("address-input");
+const orderConfirm = document.getElementById("order-confirm");
 
-// ---------- GitHub notification ----------
-// Fine-grained PAT scoped ONLY to Issues: Read & write on this one repo — see README for setup.
-const GITHUB_OWNER = "usertopio";
-const GITHUB_REPO = "for-meiyoung";
-const GITHUB_TOKEN = "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";
+// ---------- Google Sheet submission ----------
+// Apps Script Web App URL (deployed as "Anyone" access) — appends a row per submission.
+const SHEET_WEB_APP_URL = "REPLACE_WITH_APPS_SCRIPT_WEB_APP_URL";
 
-function notifyForgiven() {
-  if (notified) return;
-  notified = true;
-  fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/issues`, {
+function submitToSheet(food, address) {
+  fetch(SHEET_WEB_APP_URL, {
     method: "POST",
-    headers: {
-      Authorization: `Bearer ${GITHUB_TOKEN}`,
-      Accept: "application/vnd.github+json",
-    },
-    body: JSON.stringify({
-      title: "เหมยกดยกโทษให้พี่ท็อปแล้ว 💗",
-      body: `กดตอน: ${new Date().toLocaleString("th-TH")}`,
-    }),
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain" },
+    body: JSON.stringify({ food, address, submittedAt: new Date().toLocaleString("th-TH") }),
   }).catch(() => {
-    // best-effort notification; ignore failures so the UI never blocks on this
+    // best-effort submission; ignore failures so the UI never blocks on this
   });
 }
 
@@ -62,7 +56,6 @@ function showSuccess() {
 }
 
 function handleForgive() {
-  notifyForgiven();
   showSuccess();
 }
 
@@ -87,6 +80,21 @@ document.addEventListener("click", (event) => {
   } else if (target.dataset.action === "no") {
     handleNo();
   }
+});
+
+let orderSubmitted = false;
+
+orderForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  if (orderSubmitted) return;
+  orderSubmitted = true;
+
+  const food = foodInput.value.trim();
+  const address = addressInput.value.trim();
+  submitToSheet(food, address);
+
+  orderForm.classList.add("hidden");
+  orderConfirm.classList.remove("hidden");
 });
 
 // ---------- background floating hearts ----------
