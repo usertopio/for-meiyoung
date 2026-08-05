@@ -35,7 +35,7 @@ const orderConfirm = document.getElementById("order-confirm");
 
 // ---------- Google Sheet submission ----------
 // Apps Script Web App URL (deployed as "Anyone" access) — appends a row per submission.
-const SHEET_WEB_APP_URL = "REPLACE_WITH_APPS_SCRIPT_WEB_APP_URL";
+const SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyAz9osRAomGR1isJHvcJy9dDtUWHDa6Z9LlBE4acordC6layso1VnvSA_HLtB3DQSmtQ/exec";
 
 function submitToSheet(food, address) {
   fetch(SHEET_WEB_APP_URL, {
