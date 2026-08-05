@@ -204,6 +204,52 @@ h1 {
   50% { filter: drop-shadow(0 0 14px rgba(255, 95, 168, 0.65)); }
 }
 
+.order-form {
+  margin-top: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.order-form label {
+  display: block;
+  width: 100%;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0.7rem 0 0.4rem;
+}
+
+.order-form input,
+.order-form textarea {
+  display: block;
+  width: 100%;
+  font-family: inherit;
+  font-size: 1rem;
+  color: #7a2354;
+  background: #fff5f9;
+  border: 2px solid #ffc0dd;
+  border-radius: 16px;
+  padding: 0.6rem 0.9rem;
+  resize: none;
+}
+
+.order-form input:focus,
+.order-form textarea:focus {
+  outline: none;
+  border-color: #ff5fa8;
+}
+
+.order-form button {
+  margin-top: 0.6rem;
+  align-self: center;
+}
+
+.order-confirm {
+  margin-top: 1.4rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
 /* ---------- popup overlay ---------- */
 .overlay {
   position: fixed;
