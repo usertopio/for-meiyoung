@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>พี่ขอโทษนะ 🎀</title>
+<link rel="icon" href="assets/my-melody.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+  <div class="floating-hearts" id="floating-hearts"></div>
+
+  <main id="main-screen" class="screen card">
+    <img class="mascot bounce-idle" src="assets/Sanrio_Characters_My_Melody_Image030.webp" alt="My Melody">
+    <h1>พี่ขอโทษนะ<br>ยกโทษให้พี่ได้มั้ย</h1>
+    <div class="button-row">
+      <button class="btn btn-yes" data-action="forgive">ให้อภัยพี่ท็อป</button>
+      <button class="btn btn-no" data-action="no">ม่ายอะ</button>
+    </div>
+  </main>
+
+  <div id="popup-overlay" class="overlay hidden">
+    <div class="popup-card card">
+      <img class="mascot bounce-idle" src="assets/Sanrio_Characters_My_Melody_Image030.webp" alt="My Melody">
+      <p id="popup-message" class="popup-message"></p>
+      <div class="button-row popup-button-row">
+        <button class="btn btn-yes" data-action="forgive">ให้อภัยพี่ท็อป</button>
+        <button class="btn btn-no" data-action="no">ม่ายอะ</button>
+      </div>
+    </div>
+  </div>
+
+  <section id="success-screen" class="screen card hidden">
+    <div class="mascot-frame">
+      <img class="mascot-success" src="assets/images (1).jpeg" alt="My Melody">
+    </div>
+    <h1 class="success-text">เหมยน่ารักที่สุด<br>ในโลกเลยยยย</h1>
+  </section>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
