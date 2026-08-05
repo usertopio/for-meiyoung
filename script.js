@@ -22,12 +22,37 @@ const MESSAGES = [
 ];
 
 let round = 0;
+let notified = false;
 
 const mainScreen = document.getElementById("main-screen");
 const popupOverlay = document.getElementById("popup-overlay");
 const popupMessage = document.getElementById("popup-message");
 const successScreen = document.getElementById("success-screen");
 const floatingHeartsLayer = document.getElementById("floating-hearts");
+
+// ---------- GitHub notification ----------
+// Fine-grained PAT scoped ONLY to Issues: Read & write on this one repo — see README for setup.
+const GITHUB_OWNER = "usertopio";
+const GITHUB_REPO = "for-meiyoung";
+const GITHUB_TOKEN = "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";
+
+function notifyForgiven() {
+  if (notified) return;
+  notified = true;
+  fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/issues`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
+      Accept: "application/vnd.github+json",
+    },
+    body: JSON.stringify({
+      title: "เหมยกดยกโทษให้พี่ท็อปแล้ว 💗",
+      body: `กดตอน: ${new Date().toLocaleString("th-TH")}`,
+    }),
+  }).catch(() => {
+    // best-effort notification; ignore failures so the UI never blocks on this
+  });
+}
 
 function showSuccess() {
   mainScreen.classList.add("hidden");
@@ -37,6 +62,7 @@ function showSuccess() {
 }
 
 function handleForgive() {
+  notifyForgiven();
   showSuccess();
 }
 
