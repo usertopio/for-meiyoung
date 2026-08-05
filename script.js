@@ -37,16 +37,23 @@ const orderConfirm = document.getElementById("order-confirm");
 // Apps Script Web App URL (deployed as "Anyone" access) — appends a row per submission.
 const SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyAz9osRAomGR1isJHvcJy9dDtUWHDa6Z9LlBE4acordC6layso1VnvSA_HLtB3DQSmtQ/exec";
 
-function submitToSheet(food, address) {
+function logToSheet(event, food, address) {
   fetch(SHEET_WEB_APP_URL, {
     method: "POST",
     mode: "no-cors",
     headers: { "Content-Type": "text/plain" },
-    body: JSON.stringify({ food, address, submittedAt: new Date().toLocaleString("th-TH") }),
+    body: JSON.stringify({
+      event,
+      food: food || "",
+      address: address || "",
+      submittedAt: new Date().toLocaleString("th-TH"),
+    }),
   }).catch(() => {
     // best-effort submission; ignore failures so the UI never blocks on this
   });
 }
+
+let forgivenLogged = false;
 
 function showSuccess() {
   mainScreen.classList.add("hidden");
@@ -56,6 +63,10 @@ function showSuccess() {
 }
 
 function handleForgive() {
+  if (!forgivenLogged) {
+    forgivenLogged = true;
+    logToSheet("ยกโทษแล้ว");
+  }
   showSuccess();
 }
 
@@ -91,7 +102,7 @@ orderForm.addEventListener("submit", (event) => {
 
   const food = foodInput.value.trim();
   const address = addressInput.value.trim();
-  submitToSheet(food, address);
+  logToSheet("สั่งอาหาร", food, address);
 
   orderForm.classList.add("hidden");
   orderConfirm.classList.remove("hidden");
